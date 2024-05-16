@@ -1,0 +1,38 @@
+import React,{useState} from 'react'
+import { Link , useNavigate , useParams } from 'react-router-dom'
+function Editpost({editpost , posts}) {
+    const{id} = useParams()
+    let ans = posts.find(post=>post.id === parseInt(id))
+    const [title , setTitle] = useState(ans.title)
+    const [content , setContent] = useState(ans.content)
+    const navigate = useNavigate()
+    function handleSubmit(e) {
+        e.preventDefault()
+        editpost(ans.id,title,content)
+        navigate('/')
+    }
+  return (
+    <>
+    <h1>Edit Page</h1>
+    <form onSubmit={handleSubmit}>
+        <h1>Title : </h1>
+        <input value={title} onChange={(e)=>setTitle(e.target.value)} />
+
+        <br/><br/><br/>
+
+        <h1>Content :</h1>
+        <textarea value={content} onChange={(e)=>setContent(e.target.value)}></textarea>
+
+        <br/><br/><br/>
+
+        <button type='submit'>ADD POST</button>
+    </form>
+
+    <br/><br/><br/>
+
+    <Link to="/">BACK TO HOME</Link>
+    </>
+  )
+}
+
+export default Editpost
